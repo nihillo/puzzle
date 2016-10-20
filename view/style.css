@@ -1,0 +1,10 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	color: #999;
+	font-family: 'Days One', sans-serif;
+	font-size: 20px;
+}
+
