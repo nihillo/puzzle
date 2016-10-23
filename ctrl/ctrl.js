@@ -63,6 +63,7 @@ class CtrlGame {
 		// Show message if complete
 		if (this.app.checkFinished()) {
 			this.view.messages('complete');
+			this.view.messages('time-used', toMinutesSeconds(this.app.timeUsed));
 		}
 	}
 }

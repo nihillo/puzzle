@@ -1,13 +1,16 @@
 class View {
+	
 	constructor () {
 		this.content = document.getElementById('content');
 	}
+
 }
 
 
 
 
 class ViewSelector extends View {
+	
 	constructor() {
 		super();
 		this.content.innerHTML = `
@@ -22,12 +25,14 @@ class ViewSelector extends View {
 			</div>
 		`;
 	}
+
 }
 
 
 
 
 class ViewGame extends View {
+	
 	constructor(_size) {
 		super();
 
@@ -44,15 +49,19 @@ class ViewGame extends View {
 			this.info.appendChild(this.mvmts);
 
 		this.timer = document.createElement('span');
-			this.timer.className = 'movements';
-			this.info.appendChild(this.mvmts); 
+			this.timer.className = 'timer';
+			this.info.appendChild(this.timer); 
+			createTimer(this.timer);
+
+		this.timeUsed = document.createElement('span');
+			this.timeUsed.className = 'timer';
 
 		this.msg = document.createElement('div');
 			this.msg.className = 'messages';
 			this.content.appendChild(this.msg);
 
-
 	}
+	
 	
 	drawPic(size, pieceMap) {
 
@@ -90,23 +99,38 @@ class ViewGame extends View {
 		}
 	}
 
+	
 	draw(size, pieceMap) {
 		this.drawPic(size, pieceMap);
 	}
 
-
+	
 	messages(code, ...args) {
-		var message, movements, timer;
+		var message, movements, time;
 
 		switch (code) {
 			case 'complete':
-				message = 'Wonderful!';
+				message = `
+					<div>Wonderful!</div>
+					<div><button id="replay">Play again</button></div>
+				`;
+				this.msg.innerHTML = message;
+
+				document.getElementById('replay').addEventListener('click', function(){
+					location.hash = '';
+					location.reload();
+				});
 				break;
 			case 'movements':
-				movements = 'Mv: ' + args[0] 
-		}		
-
-		movements ? this.mvmts.innerHTML = movements : null;
-		message ? this.msg.innerHTML = message : null;
-	}
+				movements = 'Mv: ' + args[0]; 
+				this.mvmts.innerHTML = movements;
+				break;
+			case 'time-used':
+				time = 'T: ' + args[0];
+				this.info.removeChild(this.timer);
+				this.info.appendChild(this.timeUsed); 
+				this.timeUsed.innerHTML = time;
+				break;
+		}
+	}	
 }

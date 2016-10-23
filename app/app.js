@@ -8,6 +8,8 @@ class Puzzle {
 		this.picture = new Picture(size, this);
 
 		this.movements = 0;
+		this.timeStarted = new Date();
+		this.timeFinished = null;
 	}
 
 	move(direction) {
@@ -32,7 +34,20 @@ class Puzzle {
 	}
 
 	checkFinished() {
+
+		if (this.picture.checkComplete()) {
+			this.timeFinished = new Date();
+		}
+
 		return this.picture.checkComplete();
+	}
+
+	get timeUsed() {
+		// Returns time used in miliseconds
+
+		if (this.timeFinished) {
+			return this.timeFinished.getTime() - this.timeStarted.getTime();
+		}
 	}
 
 }
