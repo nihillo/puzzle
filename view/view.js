@@ -35,9 +35,23 @@ class ViewGame extends View {
 			this.picture.className = 'picture';
 			this.content.appendChild(this.picture);
 
+		this.info = document.createElement('div');
+			this.info.className = 'info';
+			this.content.appendChild(this.info);
+
+		this.mvmts = document.createElement('span');
+			this.mvmts.className = 'movements';
+			this.info.appendChild(this.mvmts);
+
+		this.timer = document.createElement('span');
+			this.timer.className = 'movements';
+			this.info.appendChild(this.mvmts); 
+
 		this.msg = document.createElement('div');
 			this.msg.className = 'messages';
 			this.content.appendChild(this.msg);
+
+
 	}
 	
 	drawPic(size, pieceMap) {
@@ -81,15 +95,18 @@ class ViewGame extends View {
 	}
 
 
-	messages(code) {
-		var message;
+	messages(code, ...args) {
+		var message, movements, timer;
 
 		switch (code) {
 			case 'complete':
 				message = 'Wonderful!';
 				break;
+			case 'movements':
+				movements = 'Mv: ' + args[0] 
 		}		
 
-		this.msg.innerHTML = message;
+		movements ? this.mvmts.innerHTML = movements : null;
+		message ? this.msg.innerHTML = message : null;
 	}
 }

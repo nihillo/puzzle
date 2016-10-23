@@ -54,8 +54,11 @@ class CtrlGame {
 		// Move piece in app and get movable piece in order to use it in view
 		var movement = this.app.move(direction);
 
-		// Redraw view
+		// Redraw pieces
 		this.view.drawPic(this.size, this.pieceMap);
+
+		// Update movements
+		this.view.messages('movements', this.app.movements);
 
 		// Show message if complete
 		if (this.app.checkFinished()) {

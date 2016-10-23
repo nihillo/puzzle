@@ -6,9 +6,12 @@ class Puzzle {
 
 		this.board = new Board(size, this);
 		this.picture = new Picture(size, this);
+
+		this.movements = 0;
 	}
 
 	move(direction) {
+
 		var movable, movement, complete;
 		
 		// Detect movable piece in function of direction
@@ -21,10 +24,7 @@ class Puzzle {
 			// Update board empty cell
 			this.board.updateEmptyCell(movement[0], movement[1]);
 
-			/*// Check if picture is complete
-			if (this.picture.checkComplete()) {
-				console.log('Complete!'); // TEST
-			}	*/
+			this.movements++;
 
 			// Return movable piece coords and complete state, in order to be used in view
 			return movable;
